@@ -1,0 +1,43 @@
+#Header{
+    width: 80%;
+    //background-color: aqua;
+    margin: 0 auto;
+
+    #logoDiv{
+        display: flex;
+        justify-content: center;
+    }
+    
+    #mainNav{
+        display: flex;
+        justify-content: space-between;
+        
+        #searchDiv{
+            height: 100%;
+            margin-top: 15px;
+            margin-left: 20px;
+
+            #searchForm{
+                width: 300px;
+                display: flex;
+                justify-content: space-between;
+            }
+        }
+    }
+    
+    
+    #btnDiv{
+        height: 50px;
+        width: 200px;
+        margin-top: 0px;
+        margin-right: 20px;
+        display: flex;
+        justify-content: space-between;
+
+    }
+    
+}
+
+
+
+
