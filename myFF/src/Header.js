@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import Styles from "./css/Header.module.scss";
 
+//헤더
 function Header() {
 
   return (
