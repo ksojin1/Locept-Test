@@ -1,25 +1,26 @@
 import { useEffect, useRef } from "react";
-import Styles from "./css/Header.module.scss";
+import Styles from "../css/Header.module.scss";
 
 //헤더
 function Header() {
 
+  
   return (
-    <div id={Styles.Header}>
-      <div id={Styles.logoDiv}>
-        <h1 id="logoImg">LOGO</h1>
+    <div className={Styles.Header}>
+      <div className={Styles.logoDiv}>
+        <h1 className={Styles.logoText}>MY FF</h1>
       </div>
-      <div id={Styles.mainNav}>
-        <div id={Styles.searchDiv}>
-          <form id={Styles.searchForm}>
+      <div className={Styles.mainNav}>
+        <div className={Styles.searchDiv}>
+          <form className={Styles.searchForm}>
             <select>
               <option>USER</option>
             </select>
             <input type="text"></input>
-            <input type="submit" value="검색"></input>
+            <input className={Styles.searchBtn} type="submit" value="검색"></input>
           </form>
         </div>
-        <div id={Styles.btnDiv}>
+        <div className={Styles.btnDiv}>
           <a href="/best">
             <h3>Best</h3>
           </a>
