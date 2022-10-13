@@ -14,13 +14,16 @@ function App() {
     <BrowserRouter>    
       <Header />
       <Routes>
-        <Route path="/" element={<Main />}></Route>
-        <Route path="/user:id" element={<UserDetail />}></Route>
         
-        <Route path="/board:id" element={<BoardView />}></Route>
+        <Route path="/" element={<Main />}></Route>
+        <Route path="/user/:id" element={<UserDetail />}></Route>
+        
+        
+        <Route path="/board/:id" element={<BoardView />}></Route>
         <Route path="/board/write" element={<BoardWrite />}></Route>
 
-        <Route path="/location:id" element={<UserMap />}></Route>
+        <Route path="/location/:id" element={<UserMap />}></Route>
+
       </Routes>
     </BrowserRouter>
     </>

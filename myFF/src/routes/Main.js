@@ -6,20 +6,28 @@ function Main() {
 
   const SERVER_URL = "http://localhost:4000/test";
   const [users, setUsers] = useState(null);
+  const test = ["aa", "bb"];
+  
+  useEffect(() => {
+    fatchData();
 
+  },[]);
+  
   const fatchData = async() => {
     const res = await axios.get(SERVER_URL);
     setUsers(res.data);
     console.log(res.data);
   };
 
-  useEffect(() => {
-    fatchData();
-  },[]);
-
   return (
     <div className={Styles.container}>
-      <div className={Styles.boardDiv}>
+      {users?.map((user) => (
+        <>
+          <h1 key={user.id}>{user.id}</h1>
+          <h1 key={user.id}>{user.text}</h1>
+        </>
+      ))}
+      {/* <div className={Styles.boardDiv}>
         <div className={Styles.userDiv}>
           <image className={Styles.userPro}></image>
           <h1 className={Styles.userId}></h1>
@@ -35,7 +43,7 @@ function Main() {
         <div className={Styles.boardimaDiv}>
           <image className={Styles.boardImg}></image>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

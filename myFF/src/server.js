@@ -7,6 +7,9 @@ app = express();
 const user = [{
     id: "ksj",
     text: "Hello MYFF",
+},{
+    id: "ksj",
+    text: "Hello MYFF",
 }]
 
 app.use(cors());
