@@ -5,6 +5,7 @@ import UserDetail from './routes/UserDetail';
 import BoardView from './routes/BoardView';
 import BoardWrite from './routes/BoardWrite';
 import UserMap from './routes/UserMap';
+import Image from './routes/Image';
 
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>    
       <Header />
       <Routes>
+        <Route path="/image" element={<Image />}></Route>
         
         <Route path="/" element={<Main />}></Route>
         <Route path="/user/:id" element={<UserDetail />}></Route>

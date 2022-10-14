@@ -6,11 +6,9 @@ function Main() {
 
   const SERVER_URL = "http://localhost:4000/test";
   const [users, setUsers] = useState(null);
-  const test = ["aa", "bb"];
   
   useEffect(() => {
     fatchData();
-
   },[]);
   
   const fatchData = async() => {
