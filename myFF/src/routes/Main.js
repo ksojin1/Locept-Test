@@ -14,34 +14,32 @@ function Main() {
   const fatchData = async() => {
     const res = await axios.get(SERVER_URL);
     setUsers(res.data);
-    console.log(res.data);
   };
 
   return (
     <div className={Styles.container}>
+      <div className={Styles.mapDiv}>
+        <img src="map.PNG"></img>
+      </div>
       {users?.map((user) => (
-        <>
-          <h1 key={user.id}>{user.id}</h1>
-          <h1 key={user.id}>{user.text}</h1>
-        </>
-      ))}
-      {/* <div className={Styles.boardDiv}>
-        <div className={Styles.userDiv}>
-          <image className={Styles.userPro}></image>
-          <h1 className={Styles.userId}></h1>
-        </div>
-        <div className={Styles.contentsDiv}>
-          <h1 className={Styles.restaurantName}></h1>
-          <p className={Styles.comment}></p>
-          <div className={Styles.starDiv}>
-            <span className={Styles.star}></span>
-            <span className={Styles.tag}></span>
+        <div key={user.id} className={Styles.boardDiv}>
+          <div className={Styles.userDiv}>
+            <img src="logo192.png"></img>
+            <h1>{user.id}</h1>
+          </div>
+          <div className={Styles.contentsDiv}>
+            <h1>식당이름 - 위치</h1>
+            <p>{user.text}</p>
+            <div className={Styles.starDiv}>
+              <span className={Styles.star}>⭐4.5</span>
+              <span className={Styles.tag}> #태그 #태그</span>
+            </div>
+          </div>
+          <div className={Styles.boardimgDiv}>
+            <img className={Styles.boardImg} src="test.jfif"></img>
           </div>
         </div>
-        <div className={Styles.boardimaDiv}>
-          <image className={Styles.boardImg}></image>
-        </div>
-      </div> */}
+      ))}
     </div>
   );
 }

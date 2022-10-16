@@ -8,7 +8,7 @@ const user = [{
     id: "ksj",
     text: "Hello MYFF",
 },{
-    id: "ksj",
+    id: "ksj2",
     text: "Hello MYFF",
 }]
 
