@@ -21,11 +21,15 @@ function Main() {
       <div className={Styles.mapDiv}>
         <img src="map.PNG"></img>
       </div>
+      <div className={Styles.boardContainer}>
       {users?.map((user) => (
         <div key={user.id} className={Styles.boardDiv}>
           <div className={Styles.userDiv}>
             <img src="logo192.png"></img>
             <h1>{user.id}</h1>
+          </div>
+          <div className={Styles.boardimgDiv}>
+            <img className={Styles.boardImg} src="test.jfif"></img>
           </div>
           <div className={Styles.contentsDiv}>
             <h1>식당이름 - 위치</h1>
@@ -35,11 +39,9 @@ function Main() {
               <span className={Styles.tag}> #태그 #태그</span>
             </div>
           </div>
-          <div className={Styles.boardimgDiv}>
-            <img className={Styles.boardImg} src="test.jfif"></img>
-          </div>
         </div>
       ))}
+      </div>
     </div>
   );
 }

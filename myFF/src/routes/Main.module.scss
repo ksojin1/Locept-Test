@@ -1,66 +1,66 @@
 .container{
     background-color: rgb(207, 213, 213);
-    width: 80%;
+    width: 65%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     .mapDiv{
-        width: 100%;
-        margin-bottom: 30px;
+        width: 95%;
+        margin-bottom: 20px;
+        margin-top: 90px;
         img{
             width: 100%;
+            height: 400px;
         }
     }
-    .boardDiv{
-        background-color: white;
-        display: flex;
-        align-items: center;
+    .boardContainer{
         width: 95%;
-        height: 350px;
-        margin-bottom: 30px;
-        border-radius: 20px;
-        .userDiv{
-            width: 20%;
-            height: 80%;
-            margin: auto 0;
-            margin-left: 30px;
-            margin-right: 20px;
-            border: 1px solid black;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        border: 1px solid black;
+        .boardDiv{
+            height: 400px;
+            background-color: white;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            img{
+            flex-wrap: wrap;
+            border-radius: 10px;
+            .userDiv{
+                width: 20%;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                img{
+                    width: 100%;
+                    margin-bottom: 30px;
+                }
+                h1{
+                    font-size: 25px;
+                }
+            }
+            .boardimgDiv{
+                width: 79%;
+                height: 300px;
+                border: 1px solid black;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .contentsDiv{
                 width: 100%;
-                margin-bottom: 30px;
-            }
-            h1{
-                font-size: 25px;
-            }
-        }
-        .contentsDiv{
-            border: 1px solid black;
-            width: 35%;
-            height: 80%;
-            margin-right: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            h1{
-                font-size: 20px;
-            }
-            .star{
-                margin-right: 20px;
-            }
-        }
-        .boardimgDiv{
-            border: 1px solid black;
-            margin-right: 30px;
-            width: 40%;
-            height: 80%;
-            img{
-                width: 100%;
-                height: 100%;
+                border: 1px solid black;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                h1{
+                    font-size: 20px;
+                }
+                .star{
+                    margin-right: 20px;
+                }
             }
         }
     }

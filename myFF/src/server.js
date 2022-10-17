@@ -5,10 +5,19 @@ const bodyParser = require('body-parser');
 app = express();
 
 const user = [{
-    id: "ksj",
+    id: "ksj1",
     text: "Hello MYFF",
 },{
     id: "ksj2",
+    text: "Hello MYFF",
+},{
+    id: "ksj3",
+    text: "Hello MYFF",
+},{
+    id: "ksj4",
+    text: "Hello MYFF",
+},{
+    id: "ksj5",
     text: "Hello MYFF",
 }]
 
