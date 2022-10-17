@@ -1,12 +1,14 @@
 .container{
-    background-color: rgb(207, 213, 213);
-    width: 65%;
+    background-color: rgb(241, 241, 241);
+    width: 978px;
     margin: 0 auto;
+    padding-top: 110px;
+    padding-bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     .mapDiv{
-        width: 95%;
+        width: 100%;
         margin-bottom: 20px;
         margin-top: 90px;
         img{
@@ -15,46 +17,45 @@
         }
     }
     .boardContainer{
-        width: 95%;
+        width: 96%;
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
-        border: 1px solid black;
         .boardDiv{
             height: 400px;
+            padding: 15px;
             background-color: white;
             display: flex;
             flex-wrap: wrap;
             border-radius: 10px;
+            box-shadow: 5PX 5px 5px -5px rgb(208, 208, 208);
             .userDiv{
-                width: 20%;
-                border: 1px solid black;
+                width: 25%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                margin-right: 20px;
                 img{
                     width: 100%;
                     margin-bottom: 30px;
                 }
                 h1{
-                    font-size: 25px;
+                    font-size: 20px;
                 }
             }
             .boardimgDiv{
-                width: 79%;
-                height: 300px;
-                border: 1px solid black;
+                width: 70%;
                 img{
                     width: 100%;
-                    height: 100%;
+                    height: 250px;
                 }
             }
             .contentsDiv{
                 width: 100%;
-                border: 1px solid black;
+                height: 160px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: space-around;
                 h1{
                     font-size: 20px;
                 }

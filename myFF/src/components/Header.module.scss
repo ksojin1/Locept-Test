@@ -1,7 +1,11 @@
 .Header{
-    width: 80%;
-    //background-color: aqua;
-    margin: 0 auto;
+    width: 978px;
+    height: 130px;
+    background-color: white;
+    box-shadow: 0 5px 5px -5px rgb(208, 208, 208);
+    position: fixed;
+    left: 50%;
+    margin-left: -489px;
 
     .logoDiv{
         display: flex;
