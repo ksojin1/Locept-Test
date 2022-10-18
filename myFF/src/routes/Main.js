@@ -25,7 +25,7 @@ function Main() {
       {users?.map((user) => (
         <div key={user.id} className={Styles.boardDiv}>
           <div className={Styles.userDiv}>
-            <img src="logo192.png"></img>
+            <img src="profile.jpeg"></img>
             <h1>{user.id}</h1>
           </div>
           <div className={Styles.boardimgDiv}>
