@@ -9,21 +9,31 @@ import UserMap from './routes/UserMap';
 //Test
 import Image from './test/Image';
 import Scroll from './test/Scroll';
-
+import HookTest from './test/HookTest';
+import { TestContext } from "./context/TestContext";
+import { useState } from "react";
 
 function App() {
 
+  //useContext 테스트용
+  const [user, setUser] = useState(null);
+
   return (
     <>
+    <TestContext.Provider value={{user, setUser}}>
     <BrowserRouter>    
       <Header />
       <Routes>
+
+        {/*test*/}
         <Route path="/scroll" element={<Scroll />}></Route>
         <Route path="/image" element={<Image />}></Route>
+        <Route path="/hook" element={<HookTest />}></Route>
         
+        {/*test*/}
+
         <Route path="/" element={<Main />}></Route>
         <Route path="/user/:id" element={<UserDetail />}></Route>
-        
         
         <Route path="/board/:id" element={<BoardView />}></Route>
         <Route path="/board/write" element={<BoardWrite />}></Route>
@@ -32,6 +42,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </TestContext.Provider>
     </>
   );
 }
