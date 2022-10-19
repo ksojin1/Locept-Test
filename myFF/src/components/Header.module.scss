@@ -1,11 +1,13 @@
 .Header{
-    width: 978px;
+    width: 1200px;
     height: 130px;
+    background-image: url("../img/headerBg.png");
+    background-size: 100%;
     background-color: white;
     box-shadow: 0 5px 5px -5px rgb(208, 208, 208);
     position: fixed;
     left: 50%;
-    margin-left: -489px;
+    margin-left: -600px;
 
     .logoDiv{
         display: flex;
@@ -13,6 +15,7 @@
         .logoText{
             font-size: 50px;
             color: rgb(249, 87, 0);
+            background-color: white;
         }
     }
     
@@ -43,13 +46,13 @@
     
     .btnDiv{
         font-size: 25px;
-        height: 50px;
+        height: 40px;
         width: 250px;
         margin-top: 20px;
         margin-right: 20px;
         display: flex;
         justify-content: space-between;
-
+        background-color: white;
     }
     
 }

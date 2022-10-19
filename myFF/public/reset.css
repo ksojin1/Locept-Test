@@ -6,6 +6,12 @@
     src: url('../font/NanumGothic.woff') format('woff');
 }
 
+/* 화면 비율 */
+#root{
+    width: 1200px;
+    margin: 0 auto;
+}
+
 /* CSS 초기 셋팅 */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code, del, dfn, em, img, ins, q, samp, small, strong, sub,

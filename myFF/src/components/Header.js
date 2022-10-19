@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react";
 import Styles from "./Header.module.scss";
 
-//헤더
 function Header() {
 
   
   return (
     <div className={Styles.Header}>
       <div className={Styles.logoDiv}>
-        <h1 className={Styles.logoText}>MY FF</h1>
+        <h1 className={Styles.logoText}>MYFF</h1>
       </div>
       <div className={Styles.mainNav}>
         <div className={Styles.searchDiv}>
