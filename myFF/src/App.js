@@ -8,8 +8,8 @@ import UserMap from './routes/UserMap';
 
 //Test
 import Image from './test/Image';
-import Scroll from './test/Scroll';
-import HookTest from './test/HookTest';
+import Hook1 from './test/Hook1';
+import CustomHook from './test/CustomHook';
 import { TestContext } from "./context/TestContext";
 import { useState } from "react";
 
@@ -20,17 +20,16 @@ function App() {
 
   return (
     <>
-    <TestContext.Provider value={{user, setUser}}>
+    {/* <TestContext.Provider value={{user, setUser}}> */}
     <BrowserRouter>    
-      {/* <Header /> */}
+      <Header />
       <Routes>
 
         {/*test*/}
-        <Route path="/scroll" element={<Scroll />}></Route>
         <Route path="/image" element={<Image />}></Route>
-        <Route path="/hook" element={<HookTest />}></Route>
-        
-        {/*test*/}
+        <Route path="/hook" element={<Hook1 />}></Route>
+        <Route path="/custom" element={<CustomHook />}></Route>
+
 
         <Route path="/" element={<Main />}></Route>
         <Route path="/user/:id" element={<UserDetail />}></Route>
@@ -42,7 +41,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
-    </TestContext.Provider>
+    {/* </TestContext.Provider> */}
     </>
   );
 }
