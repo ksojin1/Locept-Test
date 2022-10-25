@@ -10,6 +10,7 @@ import UserMap from './routes/UserMap';
 import Image from './test/Image';
 import Hook1 from './test/Hook1';
 import CustomHook from './test/CustomHook';
+import Scroll from './test/Scroll';
 import { TestContext } from "./context/TestContext";
 import { useState } from "react";
 
@@ -29,6 +30,7 @@ function App() {
         <Route path="/image" element={<Image />}></Route>
         <Route path="/hook" element={<Hook1 />}></Route>
         <Route path="/custom" element={<CustomHook />}></Route>
+        <Route path="/scroll" element={<Scroll />}></Route>
 
 
         <Route path="/" element={<Main />}></Route>
