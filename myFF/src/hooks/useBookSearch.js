@@ -1,5 +1,5 @@
-const { default: axios } = require("axios");
-const { useEffect } = require("react")
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const useBookSearch = (query, pageNumber) => {
     useEffect(() => {
@@ -7,10 +7,16 @@ const useBookSearch = (query, pageNumber) => {
 
         const tryUseEffect = async () => {
             try {
-                const res = await axios({});
+                const res = await axios({
+                    method: "GET",
+                    url: "http://openlibrary.org/search.json",
+                    params: { q: query, page: pageNumber },
+                });
             } catch (e) {
                 
             }
         }
     }, []);
-}
+};
+
+export default useBookSearch;

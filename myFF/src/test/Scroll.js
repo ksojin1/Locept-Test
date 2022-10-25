@@ -1,4 +1,4 @@
-const { useState } = require("react");
+import { useState } from "react";
 
 const Scroll = () => {
     const [query, setQuery] = useState("");
@@ -15,3 +15,5 @@ const Scroll = () => {
         </div>
     );
 };
+
+export default Scroll;
