@@ -23,7 +23,7 @@ function App() {
     <>
     {/* <TestContext.Provider value={{user, setUser}}> */}
     <BrowserRouter>    
-      <Header />
+      {/* <Header /> */}
       <Routes>
 
         {/*test*/}
