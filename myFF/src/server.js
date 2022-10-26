@@ -66,7 +66,25 @@ app.use(bodyParser.urlencoded({ extended : false })); // URL-encoded 등록
 
 //url
 app.get("/test",(req, res) => {
-    res.json(user);
+    const pageNum = parseInt(req.param('page'));
+    const showPage = 4;
+    let boards = [];
+
+    const start = pageNum*showPage;
+    const end = showPage*(pageNum+1);
+
+    for(let i=start; i<end; i++){
+        console.log(i);
+        if(user.length > i){
+            boards.push(user[i]);
+        }
+    }
+
+    console.log('pageNum : '+ pageNum);
+    console.log('showPage : '+ showPage);
+    console.log('boards : '+ boards.length);
+
+    res.json(boards);
 });
 
 app.listen(4000, () => console.log("server open"));
