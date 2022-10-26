@@ -74,7 +74,6 @@ app.get("/test",(req, res) => {
     const end = showPage*(pageNum+1);
 
     for(let i=start; i<end; i++){
-        console.log(i);
         if(user.length > i){
             boards.push(user[i]);
         }
@@ -85,6 +84,10 @@ app.get("/test",(req, res) => {
     console.log('boards : '+ boards.length);
 
     res.json(boards);
+});
+
+app.post("/test",(req, res) => {
+    console.log(req.body);
 });
 
 app.listen(4000, () => console.log("server open"));

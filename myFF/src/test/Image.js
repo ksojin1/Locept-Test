@@ -16,8 +16,7 @@ function Image() {
   const saveImage = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
-
-    if(e.target.files[0]){
+    if (e.target.files[0]) {
       fileReader.readAsDataURL(e.target.files[0]);
     }
     fileReader.onload = () => {
@@ -36,12 +35,30 @@ function Image() {
   }
 
   const imgOnload = () => {
-
     reactImageSize(image.preview_URL)
-      .then(({ width, height }) => {
+      .then(() => {
         imgRef.current.width = 300;
       })
       .catch((error) => console.log(error));
+  }
+
+  const UploadImage = async() => {
+    if (inputRef.current.files[0]) {
+      const imgFile = inputRef.current.files[0];
+      const formData = new FormData();
+      formData.append('files', imgFile);
+
+      console.log(formData);
+
+      await axios({
+        method: 'post',
+        url: 'http://localhost:4000/test',
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+    }
   }
 
   return (
@@ -50,15 +67,18 @@ function Image() {
         onChange={saveImage}
         onClick={(e) => e.target.value = null}
         ref={inputRef}
-        style={{display: 'none'}}
+        style={{ display: 'none' }}
       />
-      <div className={Styles.imgDiv}>
+      <div ref={imgRef} className={Styles.imgDiv}>
         <img src={image.preview_URL} ref={imgRef} onLoad={imgOnload} />
       </div>
+
       <div>
         <button onClick={() => inputRef.current.click()}>Preview</button>
         <button onClick={deleteImage}>Delete</button>
+        <button onClick={UploadImage}>Upload</button>
       </div>
+
     </div>
   );
 }
