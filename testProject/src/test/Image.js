@@ -6,78 +6,140 @@ import reactImageSize from "react-image-size";
 function Image() {
 
   const inputRef = useRef(null);
-  const imgRef = useRef(null);
 
-  const [image, setImage] = useState({
-    image_file: "",
-    preview_URL: "logo192.png",
-  });
+  const [imageFiles, setImageFiles] = useState([]);
+  const [images, setImages] = useState([]);
+
+  
+  console.log('imageFiles:'+imageFiles);
+  console.log('images:'+images.length);
 
   const saveImage = (e) => {
     e.preventDefault();
-    const fileReader = new FileReader();
-    if (e.target.files[0]) {
-      fileReader.readAsDataURL(e.target.files[0]);
+
+    const { files } = e.target;
+    const validImageFiles = [];
+    if(files.length > 1){
+      for(let i=0; i<files.length; i++){
+        const file = files[i];
+        validImageFiles.push(file);
+      }
+  
+      if(validImageFiles.length){
+        setImageFiles(validImageFiles);
+      }
+    } else if(files.length === 1){
+      setImageFiles((prev) => [
+        ...prev,
+        ...[files[0]],
+      ]);
     }
-    fileReader.onload = () => {
-      setImage({
-        image_file: e.target.files[0],
-        preview_URL: fileReader.result,
-      });
-    }
+    
   }
+  
 
   const deleteImage = () => {
-    setImage({
-      image_file: "",
-      preview_URL: "logo192.png",
-    });
+
+
   }
 
-  const imgOnload = () => {
-    reactImageSize(image.preview_URL)
-      .then(() => {
-        imgRef.current.width = 300;
-      })
-      .catch((error) => console.log(error));
+  const imgOnload = (e) => {
+
   }
 
-  const UploadImage = async() => {
-    if (inputRef.current.files[0]) {
-      const imgFile = inputRef.current.files[0];
+  const UploadImage = async(e) => {
+    e.preventDefault();
+    if (imageFiles) {
+      //const imgFile = inputRef.current.files;
       const formData = new FormData();
-      formData.append('files', imgFile);
+      //console.log(imgFile[0].name);
+      for(let i=0; i<imageFiles.length; i++){
+        //console.log(imgFile[i]);
+        formData.append('file', imageFiles[i]);
+      }
 
-      console.log(formData);
+      //console.log(imgFile[0]);
+      //console.log(formData);
 
-      await axios({
-        method: 'post',
-        url: 'http://localhost:4000/test',
-        data: formData,
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const config = {
+        Headers: {
+          'content-type' : 'multipart/form-data'
+        }
+      };
+      
+      const res = await axios.post(
+        'http://localhost:4000/test'
+        , formData
+        , config
+      );
     }
   }
 
-  return (
-    <div className="Image">
-      <input type='file' accept="image/*"
-        onChange={saveImage}
-        onClick={(e) => e.target.value = null}
-        ref={inputRef}
-        style={{ display: 'none' }}
-      />
-      <div ref={imgRef} className={Styles.imgDiv}>
-        <img src={image.preview_URL} ref={imgRef} onLoad={imgOnload} />
-      </div>
+  useEffect(() => {
+    const images = [], fileReaders = [];
+    let isCancel = false;
+    if(imageFiles.length){
+      imageFiles.forEach((file) => {
+        const fileReader = new FileReader();
+        fileReaders.push(fileReader);
+        fileReader.onload = (e) =>{
+          const { result } = e.target;
+          if(result){
+            images.push(result);
+          }
+          if(images.length === imageFiles.length && !isCancel){
+            setImages(images);
+          }
+        }
+        //console.log(file);
+        fileReader.readAsDataURL(file);
+      })
+    }
 
+    return () => {
+      isCancel = true;
+      fileReaders.forEach(fileReader => {
+        if(fileReader.readyState === 1){
+          fileReader.abort();
+        }
+      })
+    }
+  },[imageFiles]);
+
+  return (
+    <div className="Image" style={{paddingTop: '500px'}}>
+
+      {
+        images.length > 0 ? 
+          <div>
+          {
+            images.map((image, idx) => {
+              console.log('map');
+              return (
+              <div className={Styles.imgDiv}>
+                <img key={idx} src={image} onLoad={imgOnload} alt=""/>
+              </div>
+              );
+            })
+          }
+          </div>
+         : null
+      }
+      
+
+      <form onSubmit={UploadImage}>
+        <input type='file' accept="image/*" multiple='multiple'
+          onChange={saveImage}
+          //onClick={(e) => e.target.value = null}
+          ref={inputRef}
+          style={{ display: 'none' }}
+        />
       <div>
-        <button onClick={() => inputRef.current.click()}>Preview</button>
-        <button onClick={deleteImage}>Delete</button>
-        <button onClick={UploadImage}>Upload</button>
+        <button type="button" onClick={() => inputRef.current.click()}>Preview</button>
+        <button type="button" onClick={deleteImage}>Delete</button>
+        <button type="submit">Upload</button>
       </div>
+      </form>
 
     </div>
   );

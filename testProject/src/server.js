@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require('body-parser');
+const fileUpload = require('express-fileupload');
 app = express();
 
 const user = [{
@@ -63,7 +64,7 @@ const user = [{
 app.use(cors());
 app.use(bodyParser.json());   // json 등록
 app.use(bodyParser.urlencoded({ extended : false })); // URL-encoded 등록
-
+app.use(fileUpload());
 //url
 app.get("/test",(req, res) => {
     const pageNum = parseInt(req.param('page'));
@@ -87,7 +88,8 @@ app.get("/test",(req, res) => {
 });
 
 app.post("/test",(req, res) => {
-    console.log(req.body);
+    //const {imgFile} = req.body;
+    console.log(req.files);
 });
 
 app.listen(4000, () => console.log("server open"));
