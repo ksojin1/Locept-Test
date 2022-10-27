@@ -40,7 +40,6 @@ function Image() {
 
   const deleteImage = () => {
 
-
   }
 
   const imgOnload = (e) => {
@@ -116,8 +115,8 @@ function Image() {
             images.map((image, idx) => {
               console.log('map');
               return (
-              <div className={Styles.imgDiv}>
-                <img key={idx} src={image} onLoad={imgOnload} alt=""/>
+              <div key={idx} className={Styles.imgDiv}>
+                <img src={image} onLoad={imgOnload} alt=""/>
               </div>
               );
             })
