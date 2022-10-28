@@ -74,6 +74,10 @@ function Image() {
     }
   }
 
+  const imgDelete = (idx) => {
+    console.log(idx);
+  }
+
   useEffect(() => {
     const images = [], fileReaders = [];
     let isCancel = false;
@@ -110,14 +114,15 @@ function Image() {
 
       {
         images.length > 0 ? 
-          <div>
+          <div className={Styles.imgDiv}>
           {
             images.map((image, idx) => {
               console.log('map');
               return (
-              <div key={idx} className={Styles.imgDiv}>
-                <img src={image} onLoad={imgOnload} alt=""/>
-              </div>
+              <span key={idx} className={Styles.imgSpan}>
+                <p onClick={imgDelete(idx)}>X</p>
+                <img className={Styles.imgView} src={image} onLoad={imgOnload} alt=""/>
+              </span>
               );
             })
           }
