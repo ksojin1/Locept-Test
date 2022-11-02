@@ -37,15 +37,6 @@ function Image() {
     
   }
   
-
-  const deleteImage = () => {
-
-  }
-
-  const imgOnload = (e) => {
-
-  }
-
   const UploadImage = async(e) => {
     e.preventDefault();
     if (imageFiles) {
@@ -76,6 +67,11 @@ function Image() {
 
   const imgDelete = (idx) => {
     console.log(idx);
+    setImageFiles(imageFiles.filter((_,fileIdx) => fileIdx !== idx));
+  }
+
+  const deleteAll = () => {
+    setImageFiles([]);
   }
 
   useEffect(() => {
@@ -83,6 +79,8 @@ function Image() {
     let isCancel = false;
     if(imageFiles.length){
       imageFiles.forEach((file) => {
+
+        console.log(file);
         const fileReader = new FileReader();
         fileReaders.push(fileReader);
         fileReader.onload = (e) =>{
@@ -97,6 +95,8 @@ function Image() {
         //console.log(file);
         fileReader.readAsDataURL(file);
       })
+    }else {
+      setImages([]);
     }
 
     return () => {
@@ -110,18 +110,18 @@ function Image() {
   },[imageFiles]);
 
   return (
-    <div className="Image" style={{paddingTop: '500px'}}>
+    <div className="Image" style={{paddingTop: '150px'}}>
 
       {
         images.length > 0 ? 
           <div className={Styles.imgDiv}>
           {
             images.map((image, idx) => {
-              console.log('map');
+              //console.log(image);
               return (
               <span key={idx} className={Styles.imgSpan}>
-                <p onClick={imgDelete(idx)}>X</p>
-                <img className={Styles.imgView} src={image} onLoad={imgOnload} alt=""/>
+                <p onClick={() => imgDelete(idx,image)}>X</p>
+                <img className={Styles.imgView} src={image} alt=""/>
               </span>
               );
             })
@@ -140,7 +140,7 @@ function Image() {
         />
       <div>
         <button type="button" onClick={() => inputRef.current.click()}>Preview</button>
-        <button type="button" onClick={deleteImage}>Delete</button>
+        <button type="button" onClick={deleteAll}>Delete</button>
         <button type="submit">Upload</button>
       </div>
       </form>
