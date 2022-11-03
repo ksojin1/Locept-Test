@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useCallback, useEffect, useState } from "react";
 import Styles from "./Main.module.scss";
-import useIntersect from "../hooks/useBoardData";
 import useBoardData from "../hooks/useBoardData";
 
 function Main() {

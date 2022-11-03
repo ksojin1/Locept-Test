@@ -57,20 +57,22 @@ export const getLetter = async (req, res) => {
 }
 
 export const mainPagging = async (req, res) => {
-    const {maxPage} = req.query;
 
-    let a = [];
+    const page = parseInt(req.query.page);
+    
+    console.log(typeof(page));
 
-    for(let i =0; i < 999 ; i++){
-        a.push(i);
-    }
+    let boardArray = [];
 
-    let page = [];
-    for(let i = maxPage - 5; i < maxPage; i++){
-        page.push(a[i]);
-    }
+    models.Board.findAll({
+        where: {UID: 1}
 
-    res.json({result:"ok", page});
-
-
+    }).then(board => {
+        for(let i=page*4; i<4*(page+1); i++){
+            if(board.length > i){
+                boardArray.push(board[i]);
+            }
+        }
+        res.json({result: "ok", boardArray}).end(); 
+    });
 }

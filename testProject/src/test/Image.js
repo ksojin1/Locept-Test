@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Styles from "./Image.module.scss";
-import reactImageSize from "react-image-size";
 
 function Image() {
 
@@ -134,7 +133,7 @@ function Image() {
       <form onSubmit={UploadImage}>
         <input type='file' accept="image/*" multiple='multiple'
           onChange={saveImage}
-          //onClick={(e) => e.target.value = null}
+          onClick={(e) => e.target.value = null}
           ref={inputRef}
           style={{ display: 'none' }}
         />
