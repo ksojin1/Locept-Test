@@ -1,11 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import Styles from "./Main.module.scss";
 import {kakaoMap, boardMapSearch, mainMapSearch} from "./kakaoMap";
 import useBoardData from "../hooks/useBoardData";
 
-axios.defaults.withCredentials = true;
+import Header from '../Header/Header';
 
+
+
+axios.defaults.withCredentials = true;
 
 function Main() {
   console.log('!!!!');
@@ -44,7 +48,9 @@ function Main() {
       <div className={Styles.boardContainer}>
 
         {/*글쓰기 버튼*/}
-        <div className={Styles.addBoard}></div>
+        <a href="/board/write" className={Styles.addBoard}></a>
+        {/* <Link to={'/board/write'} className={Styles.addBoard}>
+        </Link> */}
 
         {boards?.map((board, index) => {
           //마지막 item에 ref

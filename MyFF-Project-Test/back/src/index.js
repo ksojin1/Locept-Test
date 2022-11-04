@@ -46,20 +46,6 @@ app.use("/board", boardRouter);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(PORT, () => {
     console.log(`Server open ${PORT}`);
 })

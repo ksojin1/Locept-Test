@@ -33,7 +33,7 @@ function Main() {
         <img src="map.PNG"></img>
       </div>
       <div className={Styles.boardContainer}>
-
+        <a href="/image">이미지</a>
         {boards?.map((board, index) => {
 
           //마지막 item에 ref

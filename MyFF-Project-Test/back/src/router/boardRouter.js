@@ -10,5 +10,4 @@ boardRouter.post("/:id(\\d+)/delete", boardDelte);
 boardRouter.post("/:id(\\d+)/commt", boardCommt);
 boardRouter.post("/:id(\\d+)/commt/edit", boardCommtEdit);
 
-
 export default boardRouter;

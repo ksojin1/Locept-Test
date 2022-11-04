@@ -31,24 +31,25 @@ export const boardWriteGet = async (req, res) => {
 
 //게시판 만들기
 export const boardWritePost = async (req, res) => {
-    const {writeAddrName, writeCommName, writeTagName, writeStarName} = req.body;
+    console.log(req.files);
+    // const {writeAddrName, writeCommName, writeTagName, writeStarName} = req.body;
 
-    try {
-        //DB에 넣으면서 BID를 가져옴
-        const {BID} = await models.Board.create({
-            UID: req.UID,
-            Location: writeAddrName,
-            Content: writeCommName,
-            Star: writeStarName,
-        })
+    // try {
+    //     //DB에 넣으면서 BID를 가져옴
+    //     const {BID} = await models.Board.create({
+    //         UID: req.UID,
+    //         Location: writeAddrName,
+    //         Content: writeCommName,
+    //         Star: writeStarName,
+    //     })
 
-        //사진 넣기 함수 넣으면 됨
+    //     //사진 넣기 함수 넣으면 됨
 
-        return res.redirect("/");
+    //     return res.redirect("/");
         
-    } catch (error) {
-        return res.redirect('back');
-    }
+    // } catch (error) {
+    //     return res.redirect('back');
+    // }
 };
 
 //게시글 보기
