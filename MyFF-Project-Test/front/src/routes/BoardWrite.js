@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import Styles from "./BoardWrite.module.scss";
-import Header from '../Header/Header';
 
 function BoardWrite() {
-  /*const inputRef = useRef(null);
+  const inputRef = useRef(null);
 
   const [imageFiles, setImageFiles] = useState([]);
   const [images, setImages] = useState([]);
@@ -107,15 +106,12 @@ function BoardWrite() {
         }
       })
     }
-  },[imageFiles]);*/
-
+  },[imageFiles]);
+  
   return (
     <div className={Styles.container}>
-      <button onClick={() => console.log('aaaaa')} style={{width: '500px', height: '500px'}}>aaaa</button>
-      <input type="text"></input>
 
-      {/* {
-        images.length > 0 ? 
+      {images.length > 0 ? 
           <div className={Styles.imgDiv}>
           {
             images.map((image, idx) => {
@@ -145,7 +141,7 @@ function BoardWrite() {
         <button type="button" onClick={deleteAll}>Delete</button>
         <button type="submit">Upload</button>
       </div>
-      </form> */}
+      </form>
 
     </div>
   );

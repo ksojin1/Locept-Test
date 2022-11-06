@@ -14,7 +14,6 @@
         margin-left: 250px;
         width: 950px;
         height: 400px;
-
     }
 
     .boardContainer{
@@ -22,7 +21,6 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
-        position: relative;
 
         //글쓰기 버튼
         .addBoard{

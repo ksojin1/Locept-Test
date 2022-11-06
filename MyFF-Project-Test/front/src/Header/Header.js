@@ -1,40 +1,43 @@
 import React, { useState } from "react";
 import Styles from "./Header.module.scss";
-import Modal from 'react-awesome-modal';
+import LoginModal from "./LoginModal";
 
-// import axios from "axios";
-// const SERVER_URL = "http://localhost:4000/";
-// function loginTest() {
-//     const id ="밖돌이";
-//     const pwd = "abcdefg";
+import axios from "axios";
+const SERVER_URL = "http://localhost:4000/";
+
+function loginTest() {
+    const id ="밖돌이";
+    const pwd = "abcdefg";
     
-//     axios.post(SERVER_URL + "login",{
-//       loginENName: id,
-//       loginPwdName: pwd
-//     }, {withCredentials: true}).then(res => {
-//         console.log(res.data);
-//     });
-// }
+    axios.post(SERVER_URL + "login",{
+      loginENName: id,
+      loginPwdName: pwd
+    }, {withCredentials: true}).then(res => {
+        console.log(res.data);
+    });
+  }
 
 function Header() {
 
   const [visible, setvisible] = useState(false);
-  const openModal = () =>{
-    setvisible(true);
-    document.body.style = 'overflow: hidden';
-    document.getElementById("myMap").setAttribute("hidden", "hidden");
-  }
-  const closeModal = () =>{
-    setvisible(false);
-    document.body.style = 'overflow: auto';
-    document.getElementById("myMap").removeAttribute("hidden");
-    
-    
-  }
+  console.log(visible);
 
-  //테스트
+  const openModal = () => {
+    setvisible(true);
+    
+    //스크롤바 감추기
+    document.body.style = 'overflow: hidden';
+    document.getElementById("myMap")?.setAttribute("hidden", "hidden");
+  }
   
-  
+  // const closeModal = () =>{
+  //   setvisible(false);
+
+  //   //스크롤바 작동
+  //   document.body.style = 'overflow: auto';
+  //   document.getElementById("myMap")?.removeAttribute("hidden");
+  // }
+
   return (
     <div className={Styles.Header}>
       <div className={Styles.logoDiv}>
@@ -61,8 +64,9 @@ function Header() {
             <a onClick={openModal}>
               <h3>Login</h3>
             </a>
-            <Modal onClickAway={closeModal} visible={visible} width="400" height="300" effect="fadeInDown">
-              <div>
+            {visible && (<LoginModal closeModal={() => setvisible(!visible)}></LoginModal>)}
+
+            {/* <Modal onClickAway={closeModal} visible={visible} width="400" height="300" effect="fadeInDown">
                 <div className={Styles.modalHead}>
                   <h1 className={Styles.loginText}>로그인</h1>
                   <input className={Styles.exitBtn} value="X" type="button" onClick={closeModal}/>
@@ -76,12 +80,13 @@ function Header() {
                   <a href="#">비밀번호찾기</a>
                 </div>
                 <div className={Styles.modalBtn}>
-                  <input className={Styles.loginBtn} type="button" value="로그인" />
+                  <input className={Styles.loginBtn} type="button" value="로그인" onClick={loginTest}/>
                   <input className={Styles.joinBtn} type="button" value="회원가입" />
                 </div>
-             </div>
-            </Modal>
+            </Modal> */}
+
           </div>
+          
         </div>
       </div>
     </div>

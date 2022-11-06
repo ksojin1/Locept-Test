@@ -8,7 +8,6 @@ function App() {
     <>
     <Header />
     <BrowserRouter>    
-      
       <Routes>
         
         {/*메인페이지*/}

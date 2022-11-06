@@ -5,12 +5,6 @@ import Styles from "./Main.module.scss";
 import {kakaoMap, boardMapSearch, mainMapSearch} from "./kakaoMap";
 import useBoardData from "../hooks/useBoardData";
 
-import Header from '../Header/Header';
-
-
-
-axios.defaults.withCredentials = true;
-
 function Main() {
   console.log('!!!!');
 
@@ -43,7 +37,6 @@ function Main() {
     <div className={Styles.container}>
       <div className={Styles.mapDiv} id="myMap">
       </div>
-
 
       <div className={Styles.boardContainer}>
 
