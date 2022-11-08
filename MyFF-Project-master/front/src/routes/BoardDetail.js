@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import Styles from "./BoardDetail.module.scss";
 import { Buffer } from "buffer";
-import {kakaoMap, boardMapSearch, mainMapSearch} from "./kakaoMap";
+import { kakaoMap, boardMapSearch, mainMapSearch } from "./kakaoMap";
 
 const SERVER_URL = "http://localhost:4000/board/";
 
@@ -21,7 +21,7 @@ const BoardDetail = () => {
     axios({
       method: "GET",
       url: SERVER_URL + id
-    }).then(res => {  
+    }).then(res => {
       console.log(res.data.Board);
       // console.log(res.data.Picture);
       setBoard(res.data.Board);
@@ -31,14 +31,33 @@ const BoardDetail = () => {
   }
 
   const prevClick = () => {
-    if(imgPage > 1){
-      setImgPage((prev) => prev-1);
+    if (imgPage > 1) {
+      setImgPage((prev) => prev - 1);
     }
   }
 
   const nextClick = () => {
-    if(imgPage < pictures.length){
-      setImgPage((prev) => prev+1);
+    if (imgPage < pictures.length) {
+      setImgPage((prev) => prev + 1);
+    }
+  }
+
+  const commentAdd = (e) => {
+    e.preventDefault();
+    const { userComment } = e.target;
+
+    // 댓글을 입력한 경우만 post 요청
+    if(userComment.value !== ""){
+      axios.post(SERVER_URL + id + "/commt", {
+        userID: 1, //useContext 완성되면 수정하기
+        commtName: userComment.value
+      }, { withCredentials: true }).then(res => {
+        console.log(res.data);
+        if (res.data.result === "ok") {
+          dataFetch();
+          userComment.value = "";
+        }
+      });
     }
   }
 
@@ -68,18 +87,18 @@ const BoardDetail = () => {
       {/*==== Picture ====*/}
       <div className={Styles.imageDiv}>
         <span className={Styles.prev} onClick={prevClick}>◀</span>
-        {pictures.length > 0 ? 
+        {pictures.length > 0 ?
           (
             pictures.map((picture, idx) => {
-              if(imgPage === idx+1){
+              if (imgPage === idx + 1) {
                 const img = Buffer.from(picture.Photo.data).toString('base64');
                 return (
-                  <span key={idx} className={Styles.pictureSpan}> 
+                  <span key={idx} className={Styles.pictureSpan}>
                     <img src={`data:image;base64,${img}`}></img>
                   </span>
                 )
               }
-              
+
             })
           ) : null
         }
@@ -94,24 +113,41 @@ const BoardDetail = () => {
       </div>
 
       {/*==== Comm ====*/}
-      <div className={Styles.commentsDiv}>
-        
-        {!commView && <div><button>댓글보기</button></div>}
+      <div className={Styles.commentDiv}>
 
-        <span>{board.User?.NickName}</span>
-        <input type="text"></input>
-        <button>게시</button>
-        {comments.length > 0 ? (
-          comments.map((comment,idx) => {
+        {/* 댓글추가 */}
+        <form onSubmit={commentAdd}>
+          <div className={Styles.newCommDiv}>
+            <span>{board.User?.NickName}</span>
+            <input type="text" name="userComment"></input>
+            <input type="submit" value="추가"></input>
+          </div>
+        </form>
+
+        <div className={Styles.commSetDiv} onClick={() => setCommView(!commView)}>
+          <p>{commView ? "댓글접기▲" : "댓글보기▼"}</p>
+        </div>
+
+        {(comments.length > 0 && commView) ? (
+          comments.map((comment, idx) => {
             return (
               <div className={Styles.commDiv} key={idx}>
                 <p>{comment.User.NickName}</p>
                 <p>{comment.comm}</p>
+                <p>{comment.updatedAt}</p>
+                
+                {/* userContext 완성하면 수정 예정 */}
+                {comment.UID == 1 && 
+                  <div className={Styles.commtEditDiv}>
+                    <input type="button" value="수정"></input>
+                    <input type="button" value="삭제"></input>
+                  </div>
+                }
               </div>
-              
             );
           })
-        ): null}
+        ) : null}
+
       </div>
     </div>
   );

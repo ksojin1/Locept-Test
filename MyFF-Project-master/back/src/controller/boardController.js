@@ -197,8 +197,26 @@ export const boardDelte = async (req, res) => {
     return res.redirect("/");
 };
 
-export const boardCommt = (req, res) => {
-    res.send("board commt");
+export const boardCommt = async (req, res) => {
+
+    //댓글을 작성하는 게시글 ID 
+    const {id} = req.params;
+
+    const { userID, commtName } = req.body;
+
+    try {
+        await models.Comment.create({
+            BID: id,
+            UID: userID,
+            comm: commtName,
+        });
+        
+        res.json({result: "ok"}).end();
+        
+    } catch (error) {
+        console.log(error);
+        res.json({result:"error"}).end();
+    }
 };
 
 export const boardCommtEdit = (req, res) => {

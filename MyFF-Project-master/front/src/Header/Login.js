@@ -20,7 +20,7 @@ const Login = (props) => {
         const {inputLoginPwd, inputLoginNickNEmail} = e.target;
 
         axios.post(SERVER_URL + "login",{
-            loginENName: inputLoginNickNEmail.value,
+            lognENName: inputLoginNickNEmail.value,
             loginPwdName: inputLoginPwd.value,
         }, {withCredentials: true}).then(res => {
             console.log(res.data);

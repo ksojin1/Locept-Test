@@ -66,3 +66,8 @@ input, textarea{
     color: black;
     font-size: 12px;
 }
+
+/* 소진 추가 */
+input[type=button], input[type=submit]{
+    cursor: pointer;
+}
