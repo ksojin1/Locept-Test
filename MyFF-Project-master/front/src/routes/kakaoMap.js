@@ -18,6 +18,7 @@ export function kakaoMap(zoom) {
         level: zoom
     };
     map = new kakao.maps.Map(container, options);
+    map.setZoomable(false);
 }
 
 //글쓰기 주소 찾기
@@ -32,7 +33,7 @@ export function boardMapSearch(addr) {
 
         const position = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-        const img = "img/maker.png";
+        const img = "/img/maker.png";
 
         const imgSize = new kakao.maps.Size(70, 70);
 

@@ -1,0 +1,95 @@
+.container{
+    width: 1160px;
+    padding: 20px;
+    padding-top: 150px;
+    background-color: rgb(241, 241, 241);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    //user + map
+    .userMap{
+        width: 100%;
+        height: 200px;
+        display: flex;
+        justify-content: space-between;
+        .userDiv{
+            display: flex;
+            width: 570px;
+            background-color: white;
+            border-radius: 10px;
+            img{
+                width: 160px;
+                height: 160px;
+                align-self: center;
+                margin-left: 20px;
+
+            }
+            h1{
+                align-self: center;
+                margin-left: 20px;
+                font-size: 30px;
+            }
+        }
+        .mapDiv{
+            background-color: white;
+            border-radius: 10px;
+            width: 570px;
+            .map{
+                width: 100%;
+                height: 90%;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+            }
+        }   
+    }//user + map
+
+    //image
+    .imageDiv{
+        width: 100%;
+        height: 700px;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span{
+            cursor: pointer;
+        }
+        .prev{
+            color: white;
+            font-size: 100px;
+        }
+        .next{
+            color: white;
+            font-size: 100px;
+        }
+        .pictureSpan{
+            width: 600px;
+            height: 700px;
+            display: flex;
+            align-items: center;
+            img{
+                width: 100%;
+                height: 95%;
+            }
+        }
+    }//image
+
+    .contentDiv{
+        height: 200px;
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: white;
+    }
+
+    .commentsDiv{
+        height: 80px;
+        width: 100%;
+        margin-top: 20px;
+        border-radius: 10px;
+        background-color: white;
+    }
+}

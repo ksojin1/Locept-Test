@@ -1,14 +1,15 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import Styles from "./Main.module.scss";
 import {kakaoMap, boardMapSearch, mainMapSearch} from "./kakaoMap";
 import useBoardData from "../hooks/useBoardData";
 import { Buffer } from "buffer";
+import { Link } from "react-router-dom";
 
 function Main() {
 
   const [pageNum, setPageNum] = useState(0);
   const [loading, error, boards, hasMore] = useBoardData(pageNum);
-  
+
   const lastElementRef = useCallback(
     (node) => {
       if (loading) return;
@@ -46,7 +47,9 @@ function Main() {
           //마지막 item에 ref
           if (board.length !== 0 && boards.length === index + 1) {
             return (
-              <div key={Math.random()} ref={lastElementRef} className={Styles.boardDiv}>
+              <Link to={`/board/${board.BID}`} key={Math.random()}>
+
+              <div ref={lastElementRef} className={Styles.boardDiv}>
                 <div className={Styles.userDiv}>
                   <img src="./img/profile.jpeg"></img>
                   <h1>{board.User.NickName}</h1>
@@ -64,9 +67,13 @@ function Main() {
                   </div>
                 </div>
               </div>
+
+              </Link>
             );
           } else {
             return(
+              <Link to={`/board/${board.BID}`} key={Math.random()}>
+
               <div key={Math.random()} className={Styles.boardDiv}>
                 <div className={Styles.userDiv}>
                   <img src="./img/profile.jpeg"></img>
@@ -85,6 +92,8 @@ function Main() {
                   </div>
                 </div>
               </div>
+
+              </Link>
             );
           }
         })}

@@ -4,7 +4,7 @@ import Styles from "./BoardWrite.module.scss";
 
 const SERVER_URL = "http://localhost:4000/";
 
-const Board = () => {
+const BoardWrite = () => {
   axios.defaults.withCredentials = true;
 
   //이미지 뷰 ref, state
@@ -185,4 +185,4 @@ const Board = () => {
   );
 }
 
-export default Board;
+export default BoardWrite;

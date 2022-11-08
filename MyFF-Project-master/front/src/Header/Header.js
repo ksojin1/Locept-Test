@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Styles from "./Header.module.scss";
 import Login from "./Login";
 
@@ -12,10 +12,10 @@ function Header() {
     
     setLoginModalOpen(true);
 
-    
     document.getElementById("myMap")?.setAttribute("hidden", "hidden");
   }
   const closeLoginModal = () => {
+    
     setLoginModalOpen(false);
 
     document.getElementById("myMap")?.removeAttribute("hidden");

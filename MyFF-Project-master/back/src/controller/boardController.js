@@ -69,15 +69,28 @@ export const boardSee = async (req, res) => {
     const {id} = req.params;
     
     const Board = await models.Board.findOne({
-        where: {BID: id}
-    })
-
-    const Picture = await models.Picture.findAll({
-        where: {BID: id}
+        where: {BID: id},
+        include: [{
+            model: models.Users,
+            required: true,
+            attributes: ['UID', 'Email', 'NickName']
+        },{
+            model: models.Picture,
+            required: true,
+        },{
+            model: models.Comment,
+            include:[{
+                model: models.Users,
+                require: true
+            }]
+        }]
     })
     //게시글 유무 확인
     if(Board != null){
-        return res.render("boardSee.html",{Board, Picture});    
+        // return res.render("boardSee.html",{Board, Picture});    
+        
+        // 조회 결과 보내줌
+        res.json({result:"ok", Board}).end();
     }else {
         return res.redirect("/");
     }

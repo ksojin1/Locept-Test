@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState } from "react";
 import Styles from "./Login.module.scss";
 import Join from "./Join";
@@ -12,7 +12,7 @@ const Login = (props) => {
     
     // const [inputLoginNickNEmail, setInputLoginNickNEmail] = useState("");
     // const [inputLoginPwd, setInputLoginPwd] = useState("");
-
+    
     function loginFnc(e){
         e.preventDefault();
         
