@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function Main() {
 
   const [pageNum, setPageNum] = useState(0);
-  const [loading, error, boards, hasMore] = useBoardData(pageNum);
+  const [loading, error, boards, hasMore, user] = useBoardData(pageNum);
 
   const lastElementRef = useCallback(
     (node) => {
@@ -32,17 +32,35 @@ function Main() {
     kakaoMap(6);
   }, []);
 
+
   return (
     <div className={Styles.container}>
+
+      {/* 팔로우유저 보여주는 영역 */}
+      <div className={Styles.fwUserDiv }>
+        {user.Follwers?.map((fUser, index) => {
+          return (
+            <span key={index}>{fUser.FUID}</span>
+          );
+        })}
+      </div>
+
+      {/* 지도출력 */}
       <div className={Styles.mapDiv} id="myMap">
       </div>
 
+      {/* 게시글 간략보기 */}
       <div className={Styles.boardContainer}>
-
         {boards?.map((board, index) => {
           
           //이미지 변환
           const img = Buffer.from(board.Pictures[0].Photo.data).toString('base64');
+
+          if(index < 4){
+            //console.log("aaa");
+            mainMapSearch(board, img, index);
+          }
+          
 
           //마지막 item에 ref
           if (board.length !== 0 && boards.length === index + 1) {
@@ -55,7 +73,6 @@ function Main() {
                   <h1>{board.User.NickName}</h1>
                 </div>
                 <div className={Styles.boardimgDiv}>
-                  {/* <img className={Styles.boardImg} src="./img/test.jfif"></img> */}
                   <img className={Styles.boardImg} src={`data:image;base64,${img}`} />
                 </div>
                 <div className={Styles.contentsDiv}>

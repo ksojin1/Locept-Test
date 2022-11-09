@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import Styles from "./Main.module.scss";
 import useBoardData from "../hooks/useBoardData";
 
-function Main() {
+function Main({user, setUser}) {
   console.log('!!!!');
   const [pageNum, setPageNum] = useState(0);
   const [loading, error, boards, hasMore] = useBoardData(pageNum);
@@ -25,7 +25,7 @@ function Main() {
     // loading, hasMore 이 있을 경우에만 함수가 생성된다
     [loading, hasMore]
   );
-  
+
 
   return (
     <div className={Styles.container}>

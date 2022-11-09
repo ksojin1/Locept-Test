@@ -16,11 +16,10 @@ const Login = (props) => {
     function loginFnc(e){
         e.preventDefault();
         
-        
         const {inputLoginPwd, inputLoginNickNEmail} = e.target;
 
         axios.post(SERVER_URL + "login",{
-            lognENName: inputLoginNickNEmail.value,
+            loginENName: inputLoginNickNEmail.value,
             loginPwdName: inputLoginPwd.value,
         }, {withCredentials: true}).then(res => {
             console.log(res.data);

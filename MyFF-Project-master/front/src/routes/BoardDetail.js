@@ -16,17 +16,21 @@ const BoardDetail = () => {
   const [comments, setComments] = useState([]);
   const [imgPage, setImgPage] = useState(1);
   const [commView, setCommView] = useState(false);
+  const [commtEditID, setCommtEditID] = useState(0);
+  const [commtEditText, setCommtEditText] = useState("");
+  const [userID, setUserID] = useState("");
 
   const dataFetch = () => {
     axios({
       method: "GET",
       url: SERVER_URL + id
     }).then(res => {
-      console.log(res.data.Board);
-      // console.log(res.data.Picture);
+      //console.log(res.data.Board);
+      //console.log(res.data.Picture);
       setBoard(res.data.Board);
       setPictures(res.data.Board.Pictures);
-      setComments(res.data.Board.Comments)
+      setComments(res.data.Board.Comments);
+      setUserID(res.data.UID);
     });
   }
 
@@ -47,15 +51,48 @@ const BoardDetail = () => {
     const { userComment } = e.target;
 
     // 댓글을 입력한 경우만 post 요청
-    if(userComment.value !== ""){
+    if (userComment.value !== "") {
       axios.post(SERVER_URL + id + "/commt", {
-        userID: 1, //useContext 완성되면 수정하기
+        userID, 
         commtName: userComment.value
       }, { withCredentials: true }).then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         if (res.data.result === "ok") {
           dataFetch();
           userComment.value = "";
+        }
+      });
+    }
+  }
+
+  const commtDeleteFnc = (commtID) => {
+    //console.log(commtID);
+    axios.post(SERVER_URL + id + "/commt/edit", {
+      commtID,
+      action: "delete"
+    }, { withCredentials: true}).then(res => {
+      //console.log(res.data);
+      if(res.data.result === "ok"){
+        dataFetch();
+        //console.log("OK");
+      }
+    });
+  }
+
+  const commtEditFnc = (commtID) => {
+    //console.log(commtID);
+    //console.log(commtEditText);
+    if(commtEditText !== ""){
+      axios.post(SERVER_URL + id + "/commt/edit", {
+        commtID,
+        commtEditText,
+        action: "edit"
+      }, { withCredentials: true}).then(res => {
+        //console.log(res.data);
+        if(res.data.result === "ok"){
+          setCommtEditID(0);
+          setCommtEditText("");
+          dataFetch();
         }
       });
     }
@@ -133,14 +170,32 @@ const BoardDetail = () => {
             return (
               <div className={Styles.commDiv} key={idx}>
                 <p>{comment.User.NickName}</p>
-                <p>{comment.comm}</p>
-                <p>{comment.updatedAt}</p>
+                {(commtEditID === comment.CID) ? (
+                  <input type="text"
+                    value={commtEditText}
+                    onChange={(e) => setCommtEditText(e.target.value)}
+                    autoComplete="off" //form 자동완성 OFF
+                  />
+                ):(
+                  <p>{comment.comm}</p>
+                )}
                 
-                {/* userContext 완성하면 수정 예정 */}
-                {comment.UID == 1 && 
+                <p>{(comment.updatedAt === comment.createdAt)? comment.createdAt : comment.updatedAt + "(수정됨)"}</p>
+
+                {comment.UID === userID &&
                   <div className={Styles.commtEditDiv}>
-                    <input type="button" value="수정"></input>
-                    <input type="button" value="삭제"></input>
+                    <input type="text" value={comment.CID} readOnly hidden></input>
+                    {(commtEditID === comment.CID) ? (
+                      <input type="button" value="저장" onClick={() => commtEditFnc(comment.CID)}></input>  
+                    ):(
+                      <input type="button" value="수정" 
+                        onClick={() => {
+                          setCommtEditID(comment.CID);
+                          setCommtEditText(comment.comm);
+                        }}
+                      />
+                    )}
+                    <input type="button" value="삭제" onClick={() => commtDeleteFnc(comment.CID)}></input>
                   </div>
                 }
               </div>

@@ -90,7 +90,7 @@ export const boardSee = async (req, res) => {
         // return res.render("boardSee.html",{Board, Picture});    
         
         // 조회 결과 보내줌
-        res.json({result:"ok", Board}).end();
+        res.json({result:"ok", Board, UID:req.UID}).end();
     }else {
         return res.redirect("/");
     }
@@ -219,6 +219,34 @@ export const boardCommt = async (req, res) => {
     }
 };
 
-export const boardCommtEdit = (req, res) => {
-    res.send("board commt edit");
+export const boardCommtEdit = async(req, res) => {
+
+    //const {id} = req.params;
+    const { commtID, action, commtEditText } = req.body;
+    console.log(req.body);
+    if(action === "delete"){
+        try {
+            await models.Comment.destroy({
+                where: {CID: commtID}
+            });
+            res.json({result: "ok"}).end();
+        } catch (error) {
+            console.log(error);
+            res.json({result: "error"}).end();
+        }
+    } else if(action === "edit"){
+        try {
+            await models.Comment.update({
+                comm: commtEditText
+            },{
+                where: {CID: commtID}
+            });
+            res.json({result: "ok"}).end();
+        } catch (error) {
+            console.log(error);
+            res.json({result: "error"}).end();
+        }
+    } else {
+        res.json({result: "No Action"}).end();
+    }
 };

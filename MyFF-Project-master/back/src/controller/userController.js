@@ -39,11 +39,11 @@ export const userLogin  = async (req, res) => {
 
             // return res.redirect("/");
         }else{
-            return res.json({result:"error", reason:"뭔가 틀림"}).end();
+            return res.json({result:"error", reason:"뭔가 틀림1"}).end();
         }
 
     } catch (error) {
-        return res.json({result:"error", reason:"뭔가 틀림"}).end();
+        return res.json({result:"error", reason:"뭔가 틀림2"}).end();
     }
 };
 

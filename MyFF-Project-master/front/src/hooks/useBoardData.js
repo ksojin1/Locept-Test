@@ -8,13 +8,13 @@ const useBoardData = (pageNum) => {
     const [error, setError] = useState(false);
     const [boards, setboards] = useState([]);
     const [hasMore, setHasMore] = useState(false);
+    const [user, setUser] = useState([]);
 
     // onChange시에 list를 리셋
     useEffect(() => setboards([]), []);
     
     useEffect(() => {
         let cancel;
-
         // useEffect안에async는 반환하는 값의 형태가 다르므로 쓸 수 없음
         // 그래서 새로운 함수를 만들어서 호출하는 방식으로 사용
         // axios의 cancel-token을 사용하여 반복적으로 cancel하고 
@@ -24,13 +24,14 @@ const useBoardData = (pageNum) => {
                 setLoading(true);
                 setError(false);
 
-                axios({
+                await axios({
                     method: "GET",
                     url: "http://localhost:4000/",
                     params: { page: pageNum },
                     cancelToken: new axios.CancelToken((c) => (cancel = c)),
                 }).then(res => {
                     const {result} = res.data;
+                    //console.log(result);
                     if(result !== "filed"){
                         //console.log(res.data);
                         setboards((boards) => [
@@ -40,6 +41,8 @@ const useBoardData = (pageNum) => {
                         //console.log(res.data);
                         setHasMore(res.data.boardArray.length > 0);
                         setLoading(false);
+                        console.log(res.data.user);
+                        setUser(res.data.user);
                     }
                     
                 });
@@ -56,7 +59,7 @@ const useBoardData = (pageNum) => {
     }, [pageNum]);
 
     // state값 리턴
-    return [loading, error, boards, hasMore];
+    return [loading, error, boards, hasMore, user];
 };
 
 export default useBoardData;

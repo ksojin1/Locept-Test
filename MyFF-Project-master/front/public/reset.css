@@ -71,3 +71,8 @@ input, textarea{
 input[type=button], input[type=submit]{
     cursor: pointer;
 }
+
+    
+.mapImage{
+    padding: 20px;
+}

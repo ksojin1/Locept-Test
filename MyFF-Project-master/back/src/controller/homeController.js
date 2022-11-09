@@ -4,7 +4,7 @@ import fs from "fs";
 
 export const mainPage = async (req, res) => {
     const {MyAccess} = req.cookies;
-
+    
     const page = parseInt(req.query.page);
 
     if(MyAccess){
@@ -13,7 +13,7 @@ export const mainPage = async (req, res) => {
     }
 
     if(req.UID == undefined || req.UID == null){
-        res.json({result:"filed"}).end();
+        return res.json({result:"filed"}).end();
     }
 
     try {
@@ -21,6 +21,7 @@ export const mainPage = async (req, res) => {
 
         models.Board.findAll({
             where: {UID: req.UID},
+            order: [['createdAt', 'ASC']],
             include: [{
                 model: models.Users,
                 required: true,
@@ -36,8 +37,24 @@ export const mainPage = async (req, res) => {
                     boardArray.push(board[i]);
                 }
             }
+
+            models.Users.findOne({
+                where: {UID: req.UID},
+                include: [{
+                    model:models.Follwer,
+                    include: [{
+                        model: models.Users,
+                        required: true,
+                        attributes: ['UID', 'Email', 'NickName']
+                    }]
+                }]
+            }).then(user => {
+                res.json({result:"ok", boardArray, user}).end();
+            })
+
+
             // console.log(boardArray);
-            res.json({result:"ok", boardArray}).end();
+            
         }).catch(err => {
             console.log(err);
         });

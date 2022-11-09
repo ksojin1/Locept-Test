@@ -21,7 +21,9 @@ function App() {
 
   return (
     <>
-    {/* <TestContext.Provider value={{user, setUser}}> */}
+    <TestContext.Provider value={{user, setUser}}>
+
+      
     <BrowserRouter>    
       <Header />
       <Routes>
@@ -43,7 +45,9 @@ function App() {
 
       </Routes>
     </BrowserRouter>
-    {/* </TestContext.Provider> */}
+
+
+    </TestContext.Provider>
     </>
   );
 }
