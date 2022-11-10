@@ -9,7 +9,7 @@ function Main() {
 
   const [pageNum, setPageNum] = useState(0);
   const [loading, error, boards, hasMore, user] = useBoardData(pageNum);
-
+  let sessionId = parseInt(sessionStorage.getItem('loginUID'));
   const lastElementRef = useCallback(
     (node) => {
       if (loading) return;
@@ -38,6 +38,7 @@ function Main() {
 
   useEffect(() => {
     kakaoMap(6);
+    
   }, []);
 
 
@@ -56,36 +57,7 @@ function Main() {
             );
           })}
 
-          {/* test================================= */}
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          <div className={Styles.profileDiv}>
-            <img src="./img/profile.png"></img>
-            <span>ssss</span>
-          </div>
-          {/* test================================= */}
+          
 
         </div>
         {/* 지도출력 */}
@@ -101,7 +73,7 @@ function Main() {
           const img = Buffer.from(board.Pictures[0].Photo.data).toString('base64');
 
           //지도 이미지 출력
-          // mainMapSearch(board, img, index);
+          mainMapSearch(board, img, index, sessionId);
 
 
           //마지막 item에 ref

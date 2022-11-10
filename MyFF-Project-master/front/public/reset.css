@@ -73,7 +73,6 @@ input[type=button], input[type=submit]{
 }
 
 /* 메인페이지 지도 CSS 추가 */
-
 .mapImage{
     width: 70px; 
     height: 70px;
@@ -87,6 +86,16 @@ input[type=button], input[type=submit]{
     align-items: center;
     justify-content: center;
 }
+.mapImgDivF{
+    position: absolute;
+    width: 75px;
+    height: 75px;
+    background-color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .mapImgDiv:not(:hover){
     z-index: 0;
 }

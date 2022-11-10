@@ -56,7 +56,7 @@ export function boardMapSearch(addr) {
 }
 
 //메인 화면 출력
-export function mainMapSearch(boards, img, index) {
+export function mainMapSearch(boards, img, index, sessionUID) {
     if(index === 0){
         for(let i in mainImg){
             mainImg[i].setMap(null);
@@ -64,6 +64,7 @@ export function mainMapSearch(boards, img, index) {
     }
 
     const {UID, Location} = boards;
+    //console.log(UID, sessionUID);
 
     const geocoder = new kakao.maps.services.Geocoder();
 
@@ -74,7 +75,7 @@ export function mainMapSearch(boards, img, index) {
         let content = '<img class="mapImage" src="data:image;base64,'+ img +'"/>';
 
         let contentDiv = 
-            '<div class="mapImgDiv" onclick="this.remove()">' + content 
+            `<div class="${(UID === sessionUID)? "mapImgDiv" : "mapImgDivF"}" onclick="this.remove()">` + content 
                 + '</div>';
 
         const customOverlay = new kakao.maps.CustomOverlay({

@@ -55,7 +55,7 @@ export const mainPage = async (req, res) => {
            
             for(let i in board.Follwers){
                 for(let j in board.Follwers[i].Boards){
-                    boardCount.push(board.Follwers[i].Boards[i]);
+                    boardCount.push(board.Follwers[i].Boards[j]);
                 }
             }
         
@@ -67,7 +67,7 @@ export const mainPage = async (req, res) => {
             const minPage = page * 4, 
                 maxPage = (boardCount.length < (page + 1) * 4)? boardCount.length : (page + 1) * 4;
 
-            console.log(page, minPage, maxPage);
+            //console.log(page, minPage, maxPage);
             
             const boardArray = boardCount.slice(minPage, maxPage);
         

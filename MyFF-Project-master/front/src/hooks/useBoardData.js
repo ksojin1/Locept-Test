@@ -34,7 +34,7 @@ const useBoardData = (pageNum) => {
                         ...boards,
                         ...res.data.boardArray,
                     ]);
-                    console.log(res.data);
+                    //console.log(res.data);
                     setHasMore(res.data.boardArray.length >= 1);
                     setLoading(false);
                     setUser(res.data.follwers);
