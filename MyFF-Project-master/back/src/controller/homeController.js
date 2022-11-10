@@ -17,49 +17,64 @@ export const mainPage = async (req, res) => {
     }
 
     try {
-        let boardArray = [];
-
-        models.Board.findAll({
+        models.Users.findOne({
             where: {UID: req.UID},
-            order: [['createdAt', 'ASC']],
+            attributes: ['UID', 'Email', 'NickName'],
             include: [{
-                model: models.Users,
-                required: true,
-                attributes: ['UID', 'Email', 'NickName']
-            },{
-                model: models.Picture,
-                required: true,
-            }]
-        }).then(board => {
-            
-            for(let i=page*4; i<4*(page+1); i++){
-                if(board.length > i){
-                    boardArray.push(board[i]);
-                }
-            }
-
-            models.Users.findOne({
-                where: {UID: req.UID},
+                model:models.Users,
+                as: 'Follwers',
+                attributes: ['UID', 'Email', 'NickName'],
                 include: [{
-                    model:models.Follwer,
+                    model: models.Board,
+                    order: [['BID', 'DESC']],
                     include: [{
                         model: models.Users,
-                        required: true,
+                        require: true,
                         attributes: ['UID', 'Email', 'NickName']
+                    },{
+                        model: models.Picture,
+                        required: true,
                     }]
                 }]
-            }).then(user => {
-                res.json({result:"ok", boardArray, user}).end();
-            })
+            }, {
+                model: models.Board,
+                order: [['BID', 'DESC']],
+                include: [{
+                    model: models.Users,
+                    require: true,
+                    attributes: ['UID', 'Email', 'NickName']
+                },{
+                    model: models.Picture,
+                    required: true,
+                }]
+            }]
+        }).then(board => {
+            let boardCount = [];
+        
+            boardCount = board.Boards;
+           
+            for(let i in board.Follwers){
+                for(let j in board.Follwers[i].Boards){
+                    boardCount.push(board.Follwers[i].Boards[i]);
+                }
+            }
+        
+            boardCount.sort((a, b) => {
+                if(a.BID < b.BID) return 1;
+                if(a.BID > b.BID) return -1;
+            });
+        
+            const minPage = page * 4, 
+                maxPage = (boardCount.length < (page + 1) * 4)? boardCount.length : (page + 1) * 4;
 
-
-            // console.log(boardArray);
+            console.log(page, minPage, maxPage);
             
+            const boardArray = boardCount.slice(minPage, maxPage);
+        
+            res.json({result:"ok", boardArray, follwers: board.Follwers}).end();
         }).catch(err => {
             console.log(err);
         });
-
-       
 
         // fs.readFile("./src/Views/poto.jpg", (error, data) => {
         //     if(error) {

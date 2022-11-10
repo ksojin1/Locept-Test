@@ -110,7 +110,7 @@ const BoardDetail = () => {
       <div className={Styles.userMap}>
         {/*==== User ====*/}
         <div className={Styles.userDiv}>
-          <img src="/img/profile.jpeg"></img>
+          <img src="/img/profile.png"></img>
           <h1>{board.User?.NickName}</h1>
         </div>
 

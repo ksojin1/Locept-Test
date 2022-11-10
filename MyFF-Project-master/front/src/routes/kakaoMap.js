@@ -71,12 +71,16 @@ export function mainMapSearch(boards, img, index) {
 
         const position = new kakao.maps.LatLng(result[0].y, result[0].x);
         
-        let content = '<img class="mapImage" src="data:image;base64,'+ img +'" style="width: 70px; height: 70px;" onclick="this.remove()" />';
+        let content = '<img class="mapImage" src="data:image;base64,'+ img +'"/>';
+
+        let contentDiv = 
+            '<div class="mapImgDiv" onclick="this.remove()">' + content 
+                + '</div>';
 
         const customOverlay = new kakao.maps.CustomOverlay({
             map: map,
             position: position,
-            content: content,
+            content: contentDiv,
             yAnchor: 1
         });
 

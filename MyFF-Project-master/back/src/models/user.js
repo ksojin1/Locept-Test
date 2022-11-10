@@ -54,8 +54,15 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = (models) => {
-    User.hasMany(models.Follwer, {
-      foreignKey: "MyUID"
+    User.belongsToMany(models.Users, {
+      through: 'Follwer',
+      as: 'Follwers',
+      foreignKey: 'MyUID'
+    });
+    User.belongsToMany(models.Users, {
+      through: 'Follwer',
+      as: 'Follwings',
+      foreignKey: 'FUID'
     });
     User.hasMany(models.Board, {
       foreignKey: "UID"
