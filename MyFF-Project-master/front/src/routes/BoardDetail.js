@@ -21,12 +21,7 @@ const BoardDetail = () => {
   const [userID, setUserID] = useState("");
 
   const dataFetch = () => {
-    axios({
-      method: "GET",
-      url: SERVER_URL + id
-    }).then(res => {
-      //console.log(res.data.Board);
-      //console.log(res.data.Picture);
+    axios.get(SERVER_URL + id).then((res)=>{
       setBoard(res.data.Board);
       setPictures(res.data.Board.Pictures);
       setComments(res.data.Board.Comments);
