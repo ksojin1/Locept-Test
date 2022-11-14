@@ -13,6 +13,22 @@ function addHash(pwd, salt){
 function addSalt() {
     return Math.round((new Date().valueOf() * Math.random())) + "";
 }
+//로그인 체크
+export const userLoginCk = async (req, res) => {
+    const {MyAccess} = req.cookies;
+
+    const user = await jwt.verify(MyAccess);
+    
+
+    const Users = await models.Users.findOne({
+            where: {
+                UID: user.UID
+            }
+    });
+
+    res.status(200).json({UID: Users.UID, NickName: Users.NickName}).end();
+};
+
 
 //로그인
 export const userLogin  = async (req, res) => {
@@ -155,8 +171,6 @@ export const userEditPost = async (req, res) => {
     }else {
         return res.render("userEdit",{Users})
     }
-
-
 };
 
 //유저 삭제
@@ -166,4 +180,35 @@ export const userDelete = async (req, res) => {
     })
     res.clearCookie("MyAccess");
     return res.redirect("/");
+};
+
+//이메일 중복확인
+export const userJoinEmailCk = async (req, res) => {
+    const {joinEmail} = req.body;
+    //console.log('여기보세요' + joinEmail);
+    const Users = await models.Users.findOne({
+        where: {Email: joinEmail}
+
+    });
+
+    if(Users){
+        res.status(201).json({result: 'no'}).end();    
+    }else{
+        res.status(201).json({result: 'yes'}).end();
+    }
+};
+
+//닉네임 중복확인
+export const userJoinNickCk = async (req, res) =>{
+    const {joinNick} = req.body;
+    const Users = await models.Users.findOne({
+        where: {NickName: joinNick}
+    });
+
+    if(Users){
+        res.status(201).json({result: 'no'}).end();
+    }else{
+        res.status(201).json({result: 'yes'}).end();
+    }
+
 };

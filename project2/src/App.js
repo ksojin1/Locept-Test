@@ -45,11 +45,10 @@ function App() {
         
         <BrowserRouter>
           <Routes>
-            
             <Route path="/" element={<MainInput/>}></Route>
             <Route path="/select" element={<SelectPage/>}></Route>
             <Route path="/newplan" element={<NewPlan/>}></Route>
-            <Route path="/setplan" element={<SetPlan/>}></Route>
+            <Route path="/setplan/:start/:end/:days" element={<SetPlan/>}></Route>
             <Route path="/viewplan" element={<ViewPlan/>}></Route>
           </Routes>
         </BrowserRouter>

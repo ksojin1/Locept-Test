@@ -14,11 +14,11 @@ const NewPlan = () => {
 
   const toDate = (date) => {
     const yyyy = date.getFullYear();
-    const mm = date.getMonth();
+    const mm = date.getMonth() + 1;
     const dd = date.getDate();
     const day = date.getDay();
     const dayStr = ["일","월","화","수","목","금","토"];
-    return `${yyyy}/${mm}/${dd}/${dayStr[day]}`;
+    return `${yyyy}-${mm}-${dd}-${dayStr[day]}`;
   }
 
   const getDays = (start, end) => {
@@ -51,7 +51,8 @@ const NewPlan = () => {
         <div className={Styles.deteDiv}>
           <p>Start : {planDate.startDate}</p>
           <p>End : {planDate.endDate}</p>
-          <Link to="/setplan">
+          {(days !== 0) && <p>{days-1}박 {days}일</p>}
+          <Link to={`/setplan/${planDate.startDate}/${planDate.endDate}/${days}`}>
             <input type="button" value="다음" disabled={dateCK} />
           </Link>
         </div>

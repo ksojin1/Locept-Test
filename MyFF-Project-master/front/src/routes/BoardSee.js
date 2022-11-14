@@ -1,17 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
+import { useParams } from "react-router-dom";
 import Styles from "./BoardWrite.module.scss";
 import { FaStar } from "react-icons/fa";
-import { kakaoMap, boardMapSearch,  boardMapSearchButton} from "./kakaoMap";
 
 const SERVER_URL = "/api/board";
+
 //별점 스타일
 const colors = {
   orange: "#FFBA5A",
   grey: "#a9a9a9",
 };
-
-
 const starStyle = {
   container: {
     display: "flex",
@@ -20,22 +19,27 @@ const starStyle = {
   },
 };
 
-const config = {
-  Headers: {
-    "content-type": "multipart/form-data",
-  },
-};
-
-
-const BoardWrite = () => {
+const BoardSee = () => {
   axios.defaults.withCredentials = true;
 
-  //이미지 뷰 ref, state
+  const { id } = useParams();
+  const [board, setBoard] = useState("");
+  const [pictures, setPictures] = useState([]);
+  const [userID, setUserID] = useState("");
+
   const inputRef = useRef(null); //input file
   const [imageFiles, setImageFiles] = useState([]); //전송할 이미지 파일
   const [images, setImages] = useState([]); //미리보기 이미지
 
-  const boardSubmit = (e) => {
+  const dataFetch = () => {
+    axios.get(`${SERVER_URL}/${id}/edit`).then((res) => {
+      setBoard(res.data.Board);
+      setPictures(res.data.Board.Pictures);
+      setUserID(res.data.UID);
+    });
+  };
+
+  const boardEditSubmit = (e) => {
     e.preventDefault();
 
     //imageFile 이 있는 경우만 게시물 작성 가능
@@ -47,6 +51,12 @@ const BoardWrite = () => {
         writeStarName: currentValue,
       };
 
+      const config = {
+        Headers: {
+          "content-type": "multipart/form-data",
+        },
+      };
+
       const formData = new FormData();
 
       for (let i = 0; i < imageFiles.length; i++) {
@@ -56,10 +66,9 @@ const BoardWrite = () => {
 
       formData.append("bodys", JSON.stringify(data));
 
-      axios.post(`${SERVER_URL}/write`, formData, config).then((res) => {
-        console.log(res.data);
+      axios.post(`${SERVER_URL}/${id}/edit`, formData, config).then((res) => {
+        // console.log(res.data);
         const { result } = res.data;
-
         if (result === "ok") {
           window.location.href = "/";
         } else if (result === "error") {
@@ -71,35 +80,6 @@ const BoardWrite = () => {
       alert("이미지를 업로드 해주세요");
     }
   };
-
-  //img 주소 추출
-  const imgLocation = async (e) => {
-    const {files} = e.target;
-
-    const formData = new FormData();
-
-    formData.append("imgFile", files[0]);
-
-    const res = await axios.post('/api/home/getLetter', formData, config);
-    
-    setLocationValue(res.data);
-  };
-
-  //주소 입력 
-  const [locationValue, setLocationValue] = useState('');
-
-  //카카오 주소 찾기 
-  const locationSearch = (e) => {    
-    const location = e.target.value;
-    setLocationValue(location);
-    boardMapSearch(location);
-  };
-
-  const locationSearchButton = () => {
-    const location = document.getElementById('boardLocationId').value;
-    boardMapSearchButton(location);
-  };
-
 
   // input 으로 파일을 선택하면 image State에 담는다
   const saveImage = (e) => {
@@ -129,27 +109,13 @@ const BoardWrite = () => {
 
   // 이미지 전체 삭제
   const deleteAll = () => {
-
+    console.log("dsdd");
     setImageFiles([]);
-  };
-  //별점
-  const stars = Array(5).fill(0);
-  const [currentValue, setCurrentValue] = React.useState(0);
-  const [hoverValue, setHoverValue] = React.useState(undefined);
-
-  const handleClick = (value) => {
-    setCurrentValue(value);
-  };
-  const handleMouseOver = (newHoverValue) => {
-    setHoverValue(newHoverValue);
-  };
-  const handleMouseLeave = () => {
-    setHoverValue(undefined);
   };
 
   // 이미지 state 초기화 및 파일 추가 시 실행
   useEffect(() => {
-    kakaoMap(5);
+    dataFetch();
     const images = [],
       fileReaders = [];
     let isCancel = false;
@@ -184,21 +150,35 @@ const BoardWrite = () => {
     };
   }, [imageFiles]);
 
+  //별점
+  const stars = Array(5).fill(0);
+  const [currentValue, setCurrentValue] = React.useState(0);
+  const [hoverValue, setHoverValue] = React.useState(undefined);
+
+  const handleClick = (value) => {
+    setCurrentValue(value);
+  };
+  const handleMouseOver = (newHoverValue) => {
+    setHoverValue(newHoverValue);
+  };
+  const handleMouseLeave = () => {
+    setHoverValue(undefined);
+  };
+
+  const [value, setValue] = useState("");
+
+  const change = (e) => {
+    setValue(e.target.value);
+  };
+
   return (
-    <form onSubmit={boardSubmit}>
+    <form onSubmit={boardEditSubmit}>
       <div style={{ paddingTop: "130px" }}>
         <label htmlFor="writeMapId"> 지도 </label>
         <div>
-          <input type="text" id="boardLocationId" onChange={locationSearch} value={locationValue}  placeholder="위치 검색" name="locationName" />
-          <input type="file" accept="image/*" onChange={imgLocation}/>
-          <div className={Styles.mapMaindiv}>
-            <ul id="locationSearch" hidden>
-            </ul>
-            <button type="button" onClick={locationSearchButton}> 검색 </button>
-              <div className={Styles.mapDiv} id="myMap">
-
-              </div>
-          </div>
+          <input type="text" placeholder="위치 검색" name="locationName" />
+          <input type="button" value="영수증으로 위치 검색" />
+          <div>지도 들어감</div>
         </div>
 
         {/*====================Image View=======================*/}
@@ -238,9 +218,12 @@ const BoardWrite = () => {
         <label htmlFor="writeCommId">글쓰기</label>
         <div>
           <div>
-            <textarea name="contentName" placeholder="내용 입력"></textarea>
+            <textarea
+              name="contentName"
+              placeholder="내용 입력"
+              defaultValue={board.Content}
+            ></textarea>
           </div>
-
           <div style={starStyle.container}>
             <span style={starStyle.stars}>
               별점:
@@ -255,7 +238,7 @@ const BoardWrite = () => {
                       cursor: "pointer",
                     }}
                     color={
-                      (hoverValue || currentValue) > index
+                      (hoverValue || currentValue || board.Star) > index
                         ? colors.orange
                         : colors.grey
                     }
@@ -274,5 +257,4 @@ const BoardWrite = () => {
     </form>
   );
 };
-
-export default BoardWrite;
+export default BoardSee;

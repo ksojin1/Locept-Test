@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const SERVER_URL = "http://localhost:4000/";
+const SERVER_URL = "/api/home";
 
 const useBoardData = (pageNum) => {
     axios.defaults.withCredentials = true;
@@ -22,10 +22,10 @@ const useBoardData = (pageNum) => {
             setLoading(true);
             setError(false);
 
-            axios.get(SERVER_URL, {
+            axios.get(`${SERVER_URL}/`,{
                 params: { page: pageNum },
-                cancelToken: source.token
-            }).then((res)=>{
+                cancelToken: source.token,
+            }).then(res => {
                 const {result} = res.data;
                 //console.log(result);
                 if(result !== "filed"){
@@ -34,13 +34,16 @@ const useBoardData = (pageNum) => {
                         ...boards,
                         ...res.data.boardArray,
                     ]);
-                    //console.log(res.data);
+                    console.log(res.data);
                     setHasMore(res.data.boardArray.length >= 1);
                     setLoading(false);
                     setUser(res.data.follwers);
                 }
+                
             });
-            
+
+            //console.log(res.data.boardArray);
+
         } catch (e) {
             if(axios.isCancel(e)) return;
             setError(true);
