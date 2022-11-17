@@ -11,6 +11,7 @@ const NewPlan = () => {
   });
   const [dateCK, setDateCK] = useState(true);
   const [days, setDays] = useState(0);
+  const [title, setTitle] = useState("");
 
   const toDate = (date) => {
     const yyyy = date.getFullYear();
@@ -44,6 +45,7 @@ const NewPlan = () => {
     <div className={Styles.container}>
       <div className={Styles.calendarDiv}>
         <h1>Hello</h1>
+        <input type="text" value={title} onChange={(e)=>setTitle(e.target.value)}/>
         <Calendar
           onChange={changeDate}
           selectRange={true}
@@ -52,7 +54,7 @@ const NewPlan = () => {
           <p>Start : {planDate.startDate}</p>
           <p>End : {planDate.endDate}</p>
           {(days !== 0) && <p>{days-1}박 {days}일</p>}
-          <Link to={`/setplan/${planDate.startDate}/${planDate.endDate}/${days}`}>
+          <Link to={`${planDate.startDate}/${planDate.endDate}/${days}/${title}`}>
             <input type="button" value="다음" disabled={dateCK} />
           </Link>
         </div>

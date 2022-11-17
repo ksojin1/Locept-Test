@@ -29,6 +29,15 @@
       transition: 0.5s ease-in-out;
     }
   }
+  .titleDiv{
+    height: 50px;
+    text-align: center;
+    background-color: aquamarine;
+    h1{
+      font-size: 30px;
+      margin: 0;
+    }
+  }
   .contentDiv{
     height: 770px;
     width: 1500px;

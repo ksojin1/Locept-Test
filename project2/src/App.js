@@ -47,8 +47,10 @@ function App() {
           <Routes>
             <Route path="/" element={<MainInput/>}></Route>
             <Route path="/select" element={<SelectPage/>}></Route>
+
             <Route path="/newplan" element={<NewPlan/>}></Route>
-            <Route path="/setplan/:start/:end/:days" element={<SetPlan/>}></Route>
+            <Route path="/newplan/:start/:end/:days/:title" element={<SetPlan/>}></Route>
+            
             <Route path="/viewplan" element={<ViewPlan/>}></Route>
           </Routes>
         </BrowserRouter>
