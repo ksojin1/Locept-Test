@@ -10,13 +10,10 @@ const Start = () => {
     memo: "",
   });
 
-  console.log(startPlan);
-
   const startPostFnc = ()=> {
 
     //start post
-    
-    setViewCont("hotel");
+    setViewCont("Hotel");
   }
 
   return (
