@@ -4,14 +4,14 @@
   border: 1px solid white;  
   position: relative;
   .prevBtn{
-    left: 0;
     position: absolute;
+    left: 0;
     font-size: 50px;
     z-index: 999;
   }
   .nextBtn{
-    right: 0;
     position: absolute;
+    right: 0;
     font-size: 50px;
     z-index: 999;
   }
@@ -37,13 +37,23 @@
     height: 50px;
     text-align: center;
     background-color: aquamarine;
+    position: relative;
     h1{
       font-size: 30px;
       margin: 0;
     }
+    .backBtn{
+      position: absolute;
+      top: 10px;
+      left: 5px;
+      font-size: 20px;
+      z-index: 999;
+      background-color: cornflowerblue;
+      color: white;
+    }
   }
   .contentDiv{
-    height: 770px;
+    height: 720px;
     width: 1500px;
     display: flex;
     .mapDiv{
@@ -51,15 +61,19 @@
       width: 100%;
       background-color: antiquewhite;
     }
-    .planDiv{
+    .plansDiv{
       height: 100%;
       width: 100%;
       background-color: white;
-      .setPlanFrom{
-        display: flex;
-        flex-direction: column;
-        input{
-          width: 300px;
+      display: flex;
+      flex-direction: column;
+      .planWrap{
+        overflow-y: auto;
+        .planDiv{
+          display: flex;
+          flex-direction: column;
+          padding: 15px;
+          border: 1px solid;
         }
       }
     }

@@ -30,7 +30,7 @@ const PlanNav = () => {
   //날짜 클릭
   const planMovekFnc = (idx) => {
     setViewCont(idx);
-    console.log(idx);
+    //console.log(idx);
   }
 
   //Nav 화살표 이동==================
@@ -55,7 +55,8 @@ const PlanNav = () => {
       <div className={Styles.prevBtn} onClick={navPrevFnc}>◀</div>
       <div className={Styles.nextBtn} onClick={navNextFnc}>▶</div>
       <div className={Styles.navDiv}>
-        {(viewCont === "Start" || viewCont === "Hotel") ? (
+        {/* 출발지, 숙소 설정 */}
+        {(viewCont === "Start" || viewCont === "Hotel") && (
           startNav.map((cont, idx) => {
             if (cont === viewCont) {
               return (
@@ -70,8 +71,10 @@ const PlanNav = () => {
               );
             }
           })
-        ) : (
-          dateNav.map((cont, index) => {
+        )}
+        {/* 일별계획 */}
+        {(typeof (viewCont) === "number") &&
+          (dateNav.map((cont, index) => {
             if (index === viewCont) {
               return (
                 <div onClick={() => planMovekFnc(index)} key={index}
@@ -95,6 +98,13 @@ const PlanNav = () => {
               );
             }
           })
+          )}
+        {/* 미리보기에서 최종완료 or 수정 선택*/}
+        {(viewCont === "PlanView") && (
+          <>
+            <div onClick={() => setViewCont(0)}>계획수정</div>
+            <div onClick={() => setViewCont("Complete")}>최종완료</div>
+          </>
         )}
       </div>
     </>

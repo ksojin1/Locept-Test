@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import Styles from "./SetPlan.module.scss";
 
 const Hotel = () => {
 
@@ -40,10 +41,10 @@ const Hotel = () => {
   }
 
   return (
-    <div>
+    <div  className={Styles.planWrap}>
       {hotelPlan.map((_,idx) => {
         return(
-          <div key={idx}>
+          <div key={idx} className={Styles.planDiv}>
             <label htmlFor="address">주소 : </label>
             <input type="text" id="address"
               value={hotelPlan.address}

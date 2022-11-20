@@ -7,6 +7,10 @@ import PlanNav from "./PlanNav";
 import Start from "./Start";
 import Hotel from "./Hotel";
 import DayPlan from "./DayPlan";
+import LastPlan from "./LastPlan";
+import PlanView from "./PlanView";
+
+// $('input').attr('autocomplete','off'); input 자동완성 끄기
 
 const ViewPlan = () => {
   
@@ -21,6 +25,18 @@ const ViewPlan = () => {
     title: title,
   };
 
+  const pageBackFnc = ()=> {
+    //경고창으로 이전으로 돌아가면 데이터가 사라진다고 알려주고
+    //DB에서 여행 계획 삭제??
+    if(viewCont === "Start" || viewCont === "Hotel"){
+      window.history.back();
+    }else if(typeof(viewCont) === "number"){
+      setViewCont("Start");
+    }else if(viewCont === "PlanView"){
+      setViewCont(0);
+    }
+  }
+
   useEffect(() => {
     setViewCont("Start");
   }, []);
@@ -30,16 +46,19 @@ const ViewPlan = () => {
       <div className={Styles.container}>
         <PlanNav/>
         <div className={Styles.titleDiv}>
+          <div className={Styles.backBtn} onClick={pageBackFnc}>뒤로가기</div>
           <h1>{title}</h1>
         </div>
         <div className={Styles.contentDiv}>
           <div className={Styles.mapDiv}>
           </div>
 
-          <div className={Styles.planDiv}>
+          <div className={Styles.plansDiv}>
               {viewCont === "Start" && <Start/>}
               {viewCont === "Hotel" && <Hotel/>}
-              {typeof(viewCont) === "number" && <DayPlan/>}
+              {(typeof(viewCont) === "number" && viewCont < parseInt(baseData.days)-1) && <DayPlan/>}
+              {(typeof(viewCont) === "number" && viewCont === parseInt(baseData.days)-1) && <LastPlan/>}
+              {viewCont === "PlanView" && <PlanView/>}
           </div>
 
         </div>
